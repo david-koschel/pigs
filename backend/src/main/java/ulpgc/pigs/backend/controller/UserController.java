@@ -1,7 +1,7 @@
 package ulpgc.pigs.backend.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ulpgc.pigs.backend.model.User;
+import ulpgc.pigs.backend.entity.User;
 import ulpgc.pigs.backend.repository.UserRepository;
 import java.util.List;
 
