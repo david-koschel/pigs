@@ -1,0 +1,19 @@
+<div>
+  <h1>Log In</h1>
+  <div class="w-full flex flex-col items-center">
+    <form [formGroup]="loginForm" class="input-container">
+      <div>
+        <label>Email</label>
+        <input formControlName="email" type="text">
+      </div>
+      <div>
+        <label>Contraseña</label>
+        <input formControlName="password" type="password">
+      </div>
+    </form>
+    <button (click)="login()">Log In</button>
+    @if (showError) {
+      <small class="text-red-500">Usuario o contraseñas incorrectos</small>
+    }
+  </div>
+</div>

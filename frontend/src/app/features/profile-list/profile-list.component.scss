@@ -1,0 +1,18 @@
+.swipe-left {
+  transform: translateX(-120%);
+  opacity: 0;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.swipe-right {
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Resets the card instantly before showing the new one */
+.reset-position {
+  transform: translateX(0) rotate(0deg);
+  opacity: 1;
+  transition: none;
+}
