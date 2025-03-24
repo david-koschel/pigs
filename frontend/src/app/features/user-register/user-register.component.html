@@ -1,0 +1,52 @@
+<div>
+  <h1>Registro de usuario</h1>
+  <div>
+    <form [formGroup]="userRegisterForm">
+      <div>
+        <label>Nombre</label>
+        <input pInputText max="255" formControlName="username">
+      </div>
+      <div>
+        <label>Email</label>
+        <input pInputText max="255" formControlName="email">
+      </div>
+      <div>
+        <label>Teléfono móvil</label>
+        <input pInputText max="255" formControlName="phone">
+      </div>
+      <div>
+        <label>Contraseña</label>
+        <input pInputText max="255" formControlName="password">
+      </div>
+      <div>
+        <label>Género</label>
+        <input pInputText max="255" formControlName="gender">
+      </div>
+      <div>
+        <label>Orientación Sexual</label>
+        <input pInputText max="255" formControlName="genderPreference">
+      </div>
+      <div>
+        <label>Fecha de nacimiento</label>
+        <input pInputText max="255" formControlName="birthDate">
+      </div>
+      <div>
+        <label>Localización</label>
+        <input pInputText max="255" formControlName="location">
+      </div>
+      <div>
+        <label>Dieta</label>
+        <input pInputText max="255" formControlName="dietType">
+      </div>
+      <div>
+        <label>Preferencias</label>
+        <input pInputText max="255" formControlName="preference">
+      </div>
+      <div>
+        <label>Descripción</label>
+        <input pInputText max="1024" formControlName="description">
+      </div>
+    </form>
+    <button (click)="sendForm()">Registrarse</button>
+  </div>
+</div>
