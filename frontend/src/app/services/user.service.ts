@@ -13,4 +13,8 @@ export class UserService {
   public addUser(user: User): Observable<User> {
     return this.http.post<User>("http://localhost:8080/api/users/new", user)
   }
+
+  public login(credentials: any): Observable<User> {
+    return this.http.post<User>("http://localhost:8080/api/users/login", credentials)
+  }
 }

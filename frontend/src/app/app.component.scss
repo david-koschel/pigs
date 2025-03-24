@@ -1,0 +1,11 @@
+.a-container {
+  a {
+    text-decoration: none;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    user-select: auto;
+    &:hover {
+      font-weight: bold;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 package ulpgc.pigs.backend.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ulpgc.pigs.backend.CredentialDto;
 import ulpgc.pigs.backend.entity.User;
 import ulpgc.pigs.backend.repository.UserRepository;
 import ulpgc.pigs.backend.service.UserService;
@@ -23,6 +24,11 @@ public class UserController {
     @PostMapping("/new")
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
+    }
+
+    @PostMapping("/login")
+    public User createUser(@RequestBody CredentialDto credentials) {
+        return userService.login(credentials);
     }
 
     @GetMapping

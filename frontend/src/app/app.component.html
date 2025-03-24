@@ -1,7 +1,11 @@
 <div class="flex flex-col h-screen">
-  <div class="text-3xl font-bold underline h-20 bg-red-100 flex items-center px-2">
+  <div class="text-3xl font-bold underline h-20 bg-red-200 flex items-center px-2">
     <span>Meat N' Heat</span>
   </div>
+  <nav class="font-semibold h-10 bg-red-100 flex items-center px-2 a-container">
+    <a routerLink="register">Registro</a>
+    <a routerLink="login">Inicio de Sesión</a>
+  </nav>
   <div class="flex-1 p-4">
     <router-outlet></router-outlet>
   </div>

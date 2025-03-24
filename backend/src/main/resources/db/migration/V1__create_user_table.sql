@@ -7,7 +7,7 @@ CREATE TABLE user
     phone             VARCHAR(255)       NULL,
     gender            VARCHAR(255)       NULL,
     gender_preference VARCHAR(255)       NULL,
-    birth_date        datetime           NULL,
+    birth_date        VARCHAR(255)       NULL,
     location          VARCHAR(255)       NULL,
     diet_type         VARCHAR(255)       NULL,
     preference        VARCHAR(255)       NULL,

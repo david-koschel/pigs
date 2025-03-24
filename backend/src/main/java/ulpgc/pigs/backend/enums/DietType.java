@@ -8,5 +8,6 @@ public enum DietType {
     FLEXITARIAN,
     CELIAC,
     KETO,
-    PALEO,OTHER
+    PALEO,
+    OTHER
 }
