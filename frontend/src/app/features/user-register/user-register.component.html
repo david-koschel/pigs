@@ -41,7 +41,7 @@
       </div>
       <div>
         <label>Diet</label>
-        <select formControlName="preference">
+        <select formControlName="dietType">
           <option disabled selected value>Select your diet preference</option>
           @for (diet of diets; track $index) {
             <option [value]="diet">{{ diet | titlecase }}</option>
@@ -50,7 +50,7 @@
       </div>
       <div>
         <label>Preference</label>
-        <select formControlName="dietType">
+        <select formControlName="preference">
           <option disabled selected value>Select your relationship preference</option>
           @for (preference of preferences; track $index) {
             <option [value]="preference.value">{{ preference.label }}</option>
