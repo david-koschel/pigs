@@ -3,22 +3,26 @@ package ulpgc.pigs.backend.service;
 import org.springframework.stereotype.Service;
 import ulpgc.pigs.backend.CredentialDto;
 import ulpgc.pigs.backend.entity.User;
+import ulpgc.pigs.backend.entity.UserLike;
+import ulpgc.pigs.backend.entity.UserLikeDto;
+import ulpgc.pigs.backend.repository.UserLikeRepository;
 import ulpgc.pigs.backend.repository.UserRepository;
 import ulpgc.pigs.backend.util.AESConverter;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-    private final AESConverter aesConverter;
+    private final UserLikeRepository userLikeRepository;
 
     // Constructor
-    public UserService(UserRepository userRepository, AESConverter aesConverter) {
+    public UserService(UserRepository userRepository, UserLikeRepository userLikeRepository) {
         this.userRepository = userRepository;
-        this.aesConverter = aesConverter;
+        this.userLikeRepository = userLikeRepository;
     }
 
     public java.util.List<User> getAllUsers() {
@@ -65,6 +69,30 @@ public class UserService {
         return byEmail.stream()
             .filter(u -> u.getPassword().equals(credentials.getPassword()))
             .findFirst().orElseThrow(() -> new RuntimeException("Incorrect Credentials"));
+    }
+
+    public User getUnlikedUser(int userId) {
+        User logged = this.getUserById(userId);
+        List<Integer> likedIds = logged.getLikedUsers().stream()
+            .map(UserLike::getLikedUser)
+            .map(User::getId)
+            .collect(Collectors.toList());
+
+        likedIds.add(userId);
+
+        User user = userRepository.findByIdIsNotIn(likedIds).orElse(null);
+        return user;
+    }
+
+    public void likeUser(int userId, UserLikeDto userLikeDto) {
+        User logged = this.getUserById(userId);
+        User likedUser = this.getUserById(userLikeDto.getUserId());
+
+        UserLike userLike = new UserLike();
+        userLike.setUser(logged);
+        userLike.setLikedUser(likedUser);
+        userLike.setLiked(userLikeDto.isLiked());
+        userLikeRepository.save(userLike);
     }
 }
 

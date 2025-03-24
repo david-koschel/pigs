@@ -19,7 +19,6 @@ public class AESConverter implements AttributeConverter<String, String> {
 
     @Override
     public String convertToDatabaseColumn(String attribute) {
-        System.out.println(SECRET_KEY);
         if (attribute == null || SECRET_KEY == null) return null;
         try {
             Cipher cipher = Cipher.getInstance(ALGORITHM);

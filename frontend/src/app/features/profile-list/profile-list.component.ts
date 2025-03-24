@@ -1,46 +1,52 @@
-import {Component} from '@angular/core';
-import {NgClass} from '@angular/common';
+import {Component, inject, OnInit} from '@angular/core';
+import {NgClass, TitleCasePipe} from '@angular/common';
+import {ProfileService} from './profile.service';
+import {AuthService} from '../../services/auth.service';
+import {User} from '../../models/user.model';
+import {PreferencePipe} from '../preference.pipe';
+import {combineLatest, map, Observable, OperatorFunction, timer} from 'rxjs';
 
 @Component({
   selector: 'app-profile-list',
   imports: [
-    NgClass
+    NgClass,
+    PreferencePipe,
+    TitleCasePipe
   ],
   templateUrl: './profile-list.component.html',
   styleUrl: './profile-list.component.scss'
 })
-export class ProfileListComponent {
-  profile = this.getRandomProfile();
+export class ProfileListComponent implements OnInit {
+
+  private readonly likeService = inject(ProfileService)
+  private readonly authService = inject(AuthService)
+
+  profile: User | undefined;
   isSwiping = false;
   swipeDirection: 'left' | 'right' | '' = '';
 
+  ngOnInit() {
+    this.getRandomProfile();
+  }
+
   getRandomProfile() {
-    const profiles = [
-      {
-        name: 'Alex', gender: 'Male', preferences: ['Hiking', 'Music'], photo: 'https://picsum.photos/id/1/200'
-      },
-      {
-        name: 'Samantha',
-        gender: 'Female',
-        preferences: ['Cooking', 'Travel'],
-        photo: 'https://picsum.photos/id/2/200'
-      },
-      {
-        name: 'Jordan',
-        gender: 'Non-binary',
-        preferences: ['Reading', 'Gaming'],
-        photo: 'https://picsum.photos/id/3/200'
-      },
-    ];
-    return profiles[Math.floor(Math.random() * profiles.length)];
+    this.likeService.getUnliked(this.authService.user?.id!)
+      .subscribe(res => {
+        console.log(res);
+        this.profile = res;
+      });
   }
 
   like() {
-    this.swipe('right');
+    this.likeService.like(this.authService.user?.id!, {userId: this.profile?.id, liked: true}).subscribe(
+      () => this.swipe('right')
+    )
   }
 
   pass() {
-    this.swipe('left');
+    this.likeService.like(this.authService.user?.id!, {userId: this.profile?.id, liked: false}).subscribe(
+      () => this.swipe('left')
+    )
   }
 
   swipe(direction: 'left' | 'right') {
@@ -49,19 +55,21 @@ export class ProfileListComponent {
     this.swipeDirection = direction;
     this.isSwiping = true;
 
-    setTimeout(() => {
-      this.profile = this.getRandomProfile();
-      this.swipeDirection = '';
-      setTimeout(() => {
-        this.isSwiping = false;
-      }, 10);
-    }, 300);
+    this.likeService.getUnliked(this.authService.user?.id!)
+      .pipe(delayAtLeast(300))
+      .subscribe(res => {
+        this.profile = res;
+        this.swipeDirection = '';
+        setTimeout(() => {
+          this.isSwiping = false;
+        }, 10);
+      });
   }
 }
 
 
-// export function delayAtLeast<T>(delay: number): OperatorFunction<T, T> {
-//   return function(source$: Observable<T>): Observable<T> {
-//     return combineLatest([timer(delay), source$]).pipe(map(x => x[1]));
-//   }
-// }
+export function delayAtLeast<T>(delay: number): OperatorFunction<T, T> {
+  return function(source$: Observable<T>): Observable<T> {
+    return combineLatest([timer(delay), source$]).pipe(map(x => x[1]));
+  }
+}
