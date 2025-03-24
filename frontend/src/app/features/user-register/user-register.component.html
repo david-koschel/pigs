@@ -23,16 +23,16 @@
         <input type="text" max="255" formControlName="gender">
       </div>
       <div>
-        <label>Gender preference</label>
+        <label>Sexual orientation </label>
         <select formControlName="genderPreference">
-          <option disabled selected value>Select your gender preference</option>
+          <option disabled selected value>Select your sexual orientation</option>
           @for (genderPreference of genderPreferences; track $index) {
             <option [value]="genderPreference">{{ genderPreference | titlecase }}</option>
           }
         </select>
       </div>
       <div>
-        <label>BirthDate</label>
+        <label>Birth Date</label>
         <input type="date" max="255" formControlName="birthDate">
       </div>
       <div>
@@ -62,6 +62,6 @@
         <textarea type="text" max="1024" formControlName="description"></textarea>
       </div>
     </form>
-    <button (click)="sendForm()">Registrarse</button>
+    <button (click)="sendForm()">Register</button>
   </div>
 </div>

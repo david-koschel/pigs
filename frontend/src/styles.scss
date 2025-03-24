@@ -33,3 +33,15 @@ h1 {
   }
 
 }
+
+button:not(.custom) {
+  margin-top: .5rem;
+
+  padding: .5rem 1rem .5rem 1rem;
+
+  border-radius: .5rem;
+  background-color: indianred;
+
+  color: #ffffff;
+  font-weight: bold;
+}

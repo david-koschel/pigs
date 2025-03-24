@@ -10,8 +10,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +17,6 @@ import ulpgc.pigs.backend.enums.DietType;
 import ulpgc.pigs.backend.enums.Preference;
 import ulpgc.pigs.backend.util.AESConverter;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -50,20 +46,21 @@ public class User {
     @Convert(converter = AESConverter.class)
     private String genderPreference;
 
-//    @Convert(converter = AESConverter.class)
+    @Convert(converter = AESConverter.class)
     private String birthDate;
 
     @Convert(converter = AESConverter.class)
     private String location;
 
-//    @Convert(converter = AESConverter.class)
+    @Convert(converter = AESConverter.class)
     @Enumerated(EnumType.STRING)
     private DietType dietType;
 
-//    @Convert(converter = AESConverter.class)
+    @Convert(converter = AESConverter.class)
     @Enumerated(EnumType.STRING)
     private Preference preference;
 
+    @Convert(converter = AESConverter.class)
     @Column(columnDefinition = "varchar(1024)")
     private String description;
 

@@ -5,7 +5,7 @@
   <nav class="font-semibold h-10 bg-red-100 flex items-center px-2 a-container">
     @if (authService.isLoggedIn) {
       <a routerLink="profiles">Profiles</a>
-      <a routerLink="">Events</a>
+      <a routerLink="events">Events</a>
       <a class="cursor-pointer" (click)="authService.logout()">Log Out</a>
 
     } @else {
