@@ -18,6 +18,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "varchar(4095)")
     private String description;
 
     private LocalDateTime dateTime;
@@ -32,4 +33,7 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     private EventPrivacy privacy;
+
+    @ManyToOne
+    private User user;
 }

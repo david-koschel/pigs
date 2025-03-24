@@ -11,12 +11,15 @@ import java.util.Optional;
 public class EventService {
 
     private final EventRepository eventRepository;
+    private final UserService userService;
 
-    public EventService(EventRepository eventRepository) {
+    public EventService(EventRepository eventRepository, UserService userService) {
         this.eventRepository = eventRepository;
+        this.userService = userService;
     }
 
-    public Event createEvent(Event event) {
+    public Event createEvent(Event event, Integer userId) {
+        event.setUser(userService.getUserById(userId));
         return eventRepository.save(event);
     }
 

@@ -1,9 +1,12 @@
 package ulpgc.pigs.backend.service;
 
 import org.springframework.stereotype.Service;
+import ulpgc.pigs.backend.CredentialDto;
 import ulpgc.pigs.backend.entity.User;
 import ulpgc.pigs.backend.repository.UserRepository;
+import ulpgc.pigs.backend.util.AESConverter;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,6 +56,15 @@ public class UserService {
 
     public void deleteUser(Integer id) {
         userRepository.deleteById(Long.valueOf(id));
+    }
+
+    public User login(CredentialDto credentials) {
+        AESConverter converter = new AESConverter();
+        List<User> byEmail = this.userRepository.findByEmail(credentials.getEmail());
+        byEmail.forEach(user -> {
+            System.out.println(user.getEmail());
+        });
+        throw new RuntimeException("Incorrect Credentials");
     }
 }
 

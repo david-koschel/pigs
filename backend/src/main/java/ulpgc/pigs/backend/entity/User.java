@@ -43,7 +43,7 @@ public class User {
     private String genderPreference;
 
     @Convert(converter = AESConverter.class)
-    private Date birthDate;
+    private String birthDate;
 
     @Convert(converter = AESConverter.class)
     private String location;
