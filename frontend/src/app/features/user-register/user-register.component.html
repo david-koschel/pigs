@@ -1,0 +1,67 @@
+<div>
+  <h1 class="text-center"><b>User Register</b></h1>
+  <div class="w-full flex flex-col items-center">
+    <form [formGroup]="userRegisterForm" class="input-container">
+      <div>
+        <label>Name</label>
+        <input type="text" max="255" formControlName="username">
+      </div>
+      <div>
+        <label>Email</label>
+        <input type="text" max="255" formControlName="email">
+      </div>
+      <div>
+        <label>Phone</label>
+        <input type="text" max="255" formControlName="phone">
+      </div>
+      <div>
+        <label>Password</label>
+        <input type="password" max="255" formControlName="password">
+      </div>
+      <div>
+        <label>Gender</label>
+        <input type="text" max="255" formControlName="gender">
+      </div>
+      <div>
+        <label>Sexual orientation </label>
+        <select formControlName="genderPreference">
+          <option disabled selected value>Select your sexual orientation</option>
+          @for (genderPreference of genderPreferences; track $index) {
+            <option [value]="genderPreference">{{ genderPreference | titlecase }}</option>
+          }
+        </select>
+      </div>
+      <div>
+        <label>Birth Date</label>
+        <input type="date" max="255" formControlName="birthDate">
+      </div>
+      <div>
+        <label>Location</label>
+        <input type="text" max="255" formControlName="location">
+      </div>
+      <div>
+        <label>Diet</label>
+        <select formControlName="dietType">
+          <option disabled selected value>Select your diet preference</option>
+          @for (diet of diets; track $index) {
+            <option [value]="diet">{{ diet | titlecase }}</option>
+          }
+        </select>
+      </div>
+      <div>
+        <label>Preference</label>
+        <select formControlName="preference">
+          <option disabled selected value>Select your relationship preference</option>
+          @for (preference of preferences; track $index) {
+            <option [value]="preference.value">{{ preference.label }}</option>
+          }
+        </select>
+      </div>
+      <div>
+        <label>Description</label>
+        <textarea type="text" max="1024" formControlName="description"></textarea>
+      </div>
+    </form>
+    <button (click)="sendForm()">Register</button>
+  </div>
+</div>
