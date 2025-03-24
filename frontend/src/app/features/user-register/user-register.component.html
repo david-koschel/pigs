@@ -1,9 +1,9 @@
 <div>
-  <h1>Registro de usuario</h1>
+  <h1 class="text-center"><b>User Register</b></h1>
   <div class="w-full flex flex-col items-center">
     <form [formGroup]="userRegisterForm" class="input-container">
       <div>
-        <label>Nombre</label>
+        <label>Name</label>
         <input type="text" max="255" formControlName="username">
       </div>
       <div>
@@ -11,32 +11,37 @@
         <input type="text" max="255" formControlName="email">
       </div>
       <div>
-        <label>Teléfono móvil</label>
+        <label>Phone</label>
         <input type="text" max="255" formControlName="phone">
       </div>
       <div>
-        <label>Contraseña</label>
+        <label>Password</label>
         <input type="password" max="255" formControlName="password">
       </div>
       <div>
-        <label>Género</label>
+        <label>Gender</label>
         <input type="text" max="255" formControlName="gender">
       </div>
       <div>
-        <label>Orientación Sexual</label>
-        <input type="text" max="255" formControlName="genderPreference">
+        <label>Gender preference</label>
+        <select formControlName="genderPreference">
+          <option disabled selected value>Select your gender preference</option>
+          @for (genderPreference of genderPreferences; track $index) {
+            <option [value]="genderPreference">{{ genderPreference | titlecase }}</option>
+          }
+        </select>
       </div>
       <div>
-        <label>Fecha de nacimiento</label>
+        <label>BirthDate</label>
         <input type="date" max="255" formControlName="birthDate">
       </div>
       <div>
-        <label>Localización</label>
+        <label>Location</label>
         <input type="text" max="255" formControlName="location">
       </div>
       <div>
         <label>Diet</label>
-        <select formControlName="preference">
+        <select formControlName="dietType">
           <option disabled selected value>Select your diet preference</option>
           @for (diet of diets; track $index) {
             <option [value]="diet">{{ diet | titlecase }}</option>
@@ -45,7 +50,7 @@
       </div>
       <div>
         <label>Preference</label>
-        <select formControlName="dietType">
+        <select formControlName="preference">
           <option disabled selected value>Select your relationship preference</option>
           @for (preference of preferences; track $index) {
             <option [value]="preference.value">{{ preference.label }}</option>
@@ -53,7 +58,7 @@
         </select>
       </div>
       <div>
-        <label>Descripción</label>
+        <label>Description</label>
         <textarea type="text" max="1024" formControlName="description"></textarea>
       </div>
     </form>

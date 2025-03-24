@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {User} from '../../models/user.model';
 import {UserService} from '../../services/user.service';
 import {TitleCasePipe} from '@angular/common';
+import {routes} from '../../app.routes';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-register',
@@ -17,6 +19,7 @@ export class UserRegisterComponent implements OnInit{
 
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
+  private router = inject(Router)
 
   protected userRegisterForm!: FormGroup;
 
@@ -29,6 +32,17 @@ export class UserRegisterComponent implements OnInit{
     "CELIAC",
     "KETO",
     "PALEO",
+    "OTHER"
+  ];
+
+  protected readonly genderPreferences = [
+    "HETEROSEXUAL",
+    "GAY",
+    "LESBIAN",
+    "BISEXUAL",
+    "ASEXUAL",
+    "QUESTIONING",
+    "PREFER NOT TO SAY",
     "OTHER"
   ];
 
@@ -61,9 +75,16 @@ export class UserRegisterComponent implements OnInit{
   sendForm(){
     this.userRegisterForm.markAllAsTouched();
     if (this.userRegisterForm.valid) {
-      const user: User = {...this.userRegisterForm.value};
-      console.log(user);
-      this.userService.addUser(user);
+      const user: User = this.userRegisterForm.value;
+      this.userService.addUser(user).subscribe(
+        next=>{
+          this.userRegisterForm.reset();
+          this.router.navigate(['/login']);
+        },
+        error => {
+          console.error("Error:", error);
+        }
+      );
     } else {
       console.log(this.userRegisterForm.errors)
     }
