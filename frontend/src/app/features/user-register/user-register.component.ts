@@ -32,6 +32,17 @@ export class UserRegisterComponent implements OnInit{
     "OTHER"
   ];
 
+  protected readonly genderPreferences = [
+    "HETEROSEXUAL",
+    "GAY",
+    "LESBIAN",
+    "BISEXUAL",
+    "ASEXUAL",
+    "QUESTIONING",
+    "PREFER NOT TO SAY",
+    "OTHER"
+  ];
+
   protected readonly preferences = [
     {value: "FRIENDSHIP", label: "Friendship"},
     {value: "SERIOUS_RELATIONSHIP", label: "Serious Relationship"},
@@ -61,9 +72,9 @@ export class UserRegisterComponent implements OnInit{
   sendForm(){
     this.userRegisterForm.markAllAsTouched();
     if (this.userRegisterForm.valid) {
-      const user: User = {...this.userRegisterForm.value};
+      const user: User = this.userRegisterForm.value;
       console.log(user);
-      this.userService.addUser(user);
+      this.userService.addUser(user).subscribe();
     } else {
       console.log(this.userRegisterForm.errors)
     }
