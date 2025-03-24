@@ -15,7 +15,7 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
     }
