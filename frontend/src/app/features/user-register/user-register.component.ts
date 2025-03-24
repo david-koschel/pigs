@@ -2,11 +2,13 @@ import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {User} from '../../models/user.model';
 import {UserService} from '../../services/user.service';
+import {TitleCasePipe} from '@angular/common';
 
 @Component({
   selector: 'app-user-register',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TitleCasePipe
   ],
   templateUrl: './user-register.component.html',
   styleUrl: './user-register.component.scss'
@@ -17,6 +19,26 @@ export class UserRegisterComponent implements OnInit{
   private userService = inject(UserService);
 
   protected userRegisterForm!: FormGroup;
+
+  protected readonly diets = [
+    "CARNIVOROUS",
+    "OMNIVOROUS",
+    "VEGETARIAN",
+    "VEGAN",
+    "FLEXITARIAN",
+    "CELIAC",
+    "KETO",
+    "PALEO",
+    "OTHER"
+  ];
+
+  protected readonly preferences = [
+    {value: "FRIENDSHIP", label: "Friendship"},
+    {value: "SERIOUS_RELATIONSHIP", label: "Serious Relationship"},
+    {value: "COOKING_BUDDY", label: "Cooking Buddy"},
+    {value: "CASUAL_DATE", label: "Casual Date"},
+    {value: "UNDEFINED", label: "Anything"},
+  ]
 
   ngOnInit() {
     this.userRegisterForm = this.formBuilder.group(
@@ -31,15 +53,19 @@ export class UserRegisterComponent implements OnInit{
         location: ["", Validators.required],
         dietType:["", Validators.required],
         preference:["", Validators.required],
-        description: ["", [Validators.required, Validators.max(1024)]]
+        description: ["", [Validators.required, Validators.maxLength(1024)]]
       }
     )
   }
 
   sendForm(){
+    this.userRegisterForm.markAllAsTouched();
     if (this.userRegisterForm.valid) {
       const user: User = {...this.userRegisterForm.value};
+      console.log(user);
       this.userService.addUser(user);
+    } else {
+      console.log(this.userRegisterForm.errors)
     }
   }
 }

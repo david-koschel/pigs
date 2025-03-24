@@ -33,19 +33,26 @@ public class User {
     @Convert(converter = AESConverter.class)
     private String email;
 
+    @Convert(converter = AESConverter.class)
     private String phone;
 
+    @Convert(converter = AESConverter.class)
     private String gender;
 
+    @Convert(converter = AESConverter.class)
     private String genderPreference;
 
+    @Convert(converter = AESConverter.class)
     private Date birthDate;
 
+    @Convert(converter = AESConverter.class)
     private String location;
 
+    @Convert(converter = AESConverter.class)
     @Enumerated(EnumType.STRING)
     private DietType dietType;
 
+    @Convert(converter = AESConverter.class)
     @Enumerated(EnumType.STRING)
     private Preference preference;
 
