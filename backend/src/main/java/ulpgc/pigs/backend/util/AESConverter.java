@@ -2,19 +2,24 @@ package ulpgc.pigs.backend.util;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
+@Component
 @Converter
 public class AESConverter implements AttributeConverter<String, String> {
 
-    private static final String SECRET_KEY = System.getenv("ENCRYPTION_SECRET_KEY");
+    @Value("${encryption.secret-key}")
+    private String SECRET_KEY;
     private static final String ALGORITHM = "AES";
 
     @Override
     public String convertToDatabaseColumn(String attribute) {
+        System.out.println(SECRET_KEY);
         if (attribute == null || SECRET_KEY == null) return null;
         try {
             Cipher cipher = Cipher.getInstance(ALGORITHM);
