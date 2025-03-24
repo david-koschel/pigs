@@ -13,12 +13,12 @@ export const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: '**',
-    redirectTo: 'register',
-    pathMatch: 'full'
-  },
-  {
     path: 'profiles',
     component: ProfileListComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
   }
 ];
