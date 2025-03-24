@@ -13,10 +13,12 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final AESConverter aesConverter;
 
     // Constructor
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, AESConverter aesConverter) {
         this.userRepository = userRepository;
+        this.aesConverter = aesConverter;
     }
 
     public java.util.List<User> getAllUsers() {
@@ -59,12 +61,10 @@ public class UserService {
     }
 
     public User login(CredentialDto credentials) {
-        AESConverter converter = new AESConverter();
         List<User> byEmail = this.userRepository.findByEmail(credentials.getEmail());
-        byEmail.forEach(user -> {
-            System.out.println(user.getEmail());
-        });
-        throw new RuntimeException("Incorrect Credentials");
+        return byEmail.stream()
+            .filter(u -> u.getPassword().equals(credentials.getPassword()))
+            .findFirst().orElseThrow(() -> new RuntimeException("Incorrect Credentials"));
     }
 }
 
